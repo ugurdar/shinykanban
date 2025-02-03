@@ -29,6 +29,9 @@ kanban(
 
 \item{elementId}{DOM element ID.}
 }
+\value{
+A kanban board.
+}
 \description{
 This function creates an interactive Kanban board as an HTML widget.
 }

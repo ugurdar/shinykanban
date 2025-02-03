@@ -6,9 +6,10 @@
 #' @param styleOptions A named list of style options.
 #' @param width,height Optional widget dimensions.
 #' @param elementId DOM element ID.
-#'
+#' @return A kanban board.
 #' @import bsicons
 #' @import htmlwidgets
+#' @import htmltools
 #' @export
 kanban <- function(
     data,
@@ -77,7 +78,7 @@ kanban <- function(
   )
 
 
-  finalStyle <- modifyList(defaults, styleOptions)
+  finalStyle <- utils::modifyList(defaults, styleOptions)
 
   component <- reactR::reactMarkup(
     htmltools::tag("KanbanBoard", list(
@@ -126,6 +127,11 @@ isTagList <- function(x) {
 #' @param outputId Output variable to read the value from
 #' @param width,height A valid CSS unit (like `"100%"`, `"400px"`, `"auto"`)
 #' or a number, which will be coerced to a string and have `"px"` appended.
+#' @return `kanbanOutput()` returns a `kanban` output element that can be
+#'   included in a Shiny UI.
+#'
+#'   `renderKanban()` returns a `kanban` render function that can be
+#'   assigned to a Shiny output slot.
 #' @name kanban-shiny
 #' @import htmlwidgets
 #' @export
@@ -147,68 +153,61 @@ kanbanOutput <- function(outputId, width = "100%", height = "400px") {
 #' Renders a kanban that is suitable for assigning to an output slot.
 #' @examples
 #' if(interactive()){
-#'library(shiny)
-#'library(shinykanban)
-#'library(bslib)
-#'library(bsicons)
+#' library(shiny)
+#' library(shinykanban)
+#' library(bsicons)
 #'
-#'ui <- page_fluid(
-#' title = "My App",
-#' nav_panel(title = "One",
-#'            kanbanOutput("kanban_board")
-#'  )
-#')
+#' ui <- fluidPage(
+#'  kanbanOutput("kanban_board")
+#' )
 #'
-#'server <- function(input, output, session) {
+#' server <- function(input, output, session) {
 #'
-#' kanban_data <- reactiveVal(
-#'  list(
-#'  "To Do" = list(
-#'    name = "To Do",
-#'    items = list(
-#'     list(
-#'       id = "task1",
-#'       title = "Task 1",
-#'       subtitle = "abc"
-#'     ),
+#'  kanban_data <- reactiveVal(
+#'   list(
+#'   "To Do" = list(
+#'     name = "To Do",
+#'     items = list(
 #'      list(
-#'       id = "task2",
-#'       title = "Task 2"
+#'        id = "task1",
+#'        title = "Task 1",
+#'        subtitle = "abc"
+#'      ),
+#'       list(
+#'        id = "task2",
+#'        title = "Task 2"
+#'      )
+#'    ),
+#'     listPosition = 1
+#'    ),
+#'   "In Progress" = list(
+#'    name = "In Progress",
+#'    items = list(
+#'      list(
+#'       id = "task3",
+#'       title = "Task 3"
 #'     )
 #'    ),
-#'    listPosition = 1
-#'   ),
-#'  "In Progress" = list(
-#'   name = "In Progress",
-#'   items = list(
-#'     list(
-#'      id = "task3",
-#'      title = "Task 3"
-#'    )
-#'   ),
-#'     listPosition = 2
-#'    )
-#'   ))
+#'      listPosition = 2
+#'     )
+#'    ))
 #'
-#' output$kanban_board <- renderKanban({
-#'  message("rerendering")
-#'  kanban(
-#'   data = kanban_data()
-#'   )
-#' })
+#'  output$kanban_board <- renderKanban({
+#'   kanban(data = kanban_data())
+#'  })
 #'
 #'  # Get any change from kanban and update the data
-#' observeEvent(input$kanban_board, {
-#' new_list <- input$kanban_board
-#' new_list$`_timestamp` <- NULL
-#'    kanban_data(new_list)
+#'  observeEvent(input$kanban_board, {
+#'  new_list <- input$kanban_board
+#'  new_list$`_timestamp` <- NULL
+#'     kanban_data(new_list)
 #'  })
-#'}
-#'
-#'shinyApp(ui, server)
-#'
-#'}
+#' }
+#' shinyApp(ui, server)
+#' }
 #' @param expr An expression that generates kanban board with shinykanban::kanban()
+#' @param env The parent environment for the reactive expression.
+#' @param quoted If it is TRUE, then the quote()ed value of expr will be used when expr is evaluated.
 #' @rdname kanban-shiny
 #' @import htmlwidgets
 #' @export
@@ -222,6 +221,7 @@ renderKanban <- function(expr, env = parent.frame(), quoted = FALSE) {
 #' @param session The Shiny session object.
 #' @param inputId The ID of the input object.
 #' @param data The data to set.
+#' @return None
 #' @export
 updateKanban <- function(session, inputId, data) {
   session$sendCustomMessage(inputId, list(data = data))
@@ -231,6 +231,7 @@ updateKanban <- function(session, inputId, data) {
 #'
 #' Retrieves the details of a card that was clicked on the Kanban board.
 #' @param outputId A character string specifying the ID of the Kanban output.
+#' @param session The Shiny session object.
 #' @return A list with the selected card's details as a list (listName, title, id, position, clickCount)
 #' @import shiny
 #' @export
@@ -247,6 +248,7 @@ getSelectedCard <- function(outputId, session = NULL) {
   if (!is.character(outputId)) {
     stop("`outputId` must be a character string")
   }
+
 
   state <- session$input[[sprintf("%s__kanban__card", outputId)]]
 

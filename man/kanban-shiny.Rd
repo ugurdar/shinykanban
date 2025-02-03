@@ -17,6 +17,17 @@ renderKanban(expr, env = parent.frame(), quoted = FALSE)
 or a number, which will be coerced to a string and have \code{"px"} appended.}
 
 \item{expr}{An expression that generates kanban board with shinykanban::kanban()}
+
+\item{env}{The parent environment for the reactive expression.}
+
+\item{quoted}{If it is TRUE, then the quote()ed value of expr will be used when expr is evaluated.}
+}
+\value{
+\code{kanbanOutput()} returns a \code{kanban} output element that can be
+included in a Shiny UI.
+
+\code{renderKanban()} returns a \code{kanban} render function that can be
+assigned to a Shiny output slot.
 }
 \description{
 Output and render functions for using Kanban Board within Shiny.
@@ -25,63 +36,54 @@ Output and render functions for using Kanban Board within Shiny.
 if(interactive()){
 library(shiny)
 library(shinykanban)
-library(bslib)
 library(bsicons)
 
-ui <- page_fluid(
-title = "My App",
-nav_panel(title = "One",
-           kanbanOutput("kanban_board")
- )
+ui <- fluidPage(
+ kanbanOutput("kanban_board")
 )
 
 server <- function(input, output, session) {
 
-kanban_data <- reactiveVal(
- list(
- "To Do" = list(
-   name = "To Do",
-   items = list(
-    list(
-      id = "task1",
-      title = "Task 1",
-      subtitle = "abc"
-    ),
+ kanban_data <- reactiveVal(
+  list(
+  "To Do" = list(
+    name = "To Do",
+    items = list(
      list(
-      id = "task2",
-      title = "Task 2"
+       id = "task1",
+       title = "Task 1",
+       subtitle = "abc"
+     ),
+      list(
+       id = "task2",
+       title = "Task 2"
+     )
+   ),
+    listPosition = 1
+   ),
+  "In Progress" = list(
+   name = "In Progress",
+   items = list(
+     list(
+      id = "task3",
+      title = "Task 3"
     )
    ),
-   listPosition = 1
-  ),
- "In Progress" = list(
-  name = "In Progress",
-  items = list(
-    list(
-     id = "task3",
-     title = "Task 3"
-   )
-  ),
-    listPosition = 2
-   )
-  ))
+     listPosition = 2
+    )
+   ))
 
-output$kanban_board <- renderKanban({
- message("rerendering")
- kanban(
-  data = kanban_data()
-  )
-})
+ output$kanban_board <- renderKanban({
+  kanban(data = kanban_data())
+ })
 
  # Get any change from kanban and update the data
-observeEvent(input$kanban_board, {
-new_list <- input$kanban_board
-new_list$`_timestamp` <- NULL
-   kanban_data(new_list)
+ observeEvent(input$kanban_board, {
+ new_list <- input$kanban_board
+ new_list$`_timestamp` <- NULL
+    kanban_data(new_list)
  })
 }
-
 shinyApp(ui, server)
-
 }
 }

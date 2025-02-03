@@ -13,6 +13,9 @@ updateKanban(session, inputId, data)
 
 \item{data}{The data to set.}
 }
+\value{
+None
+}
 \description{
 Update the data for a Kanban input on the client.
 }

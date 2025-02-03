@@ -8,6 +8,8 @@ getSelectedCard(outputId, session = NULL)
 }
 \arguments{
 \item{outputId}{A character string specifying the ID of the Kanban output.}
+
+\item{session}{The Shiny session object.}
 }
 \value{
 A list with the selected card's details as a list (listName, title, id, position, clickCount)
