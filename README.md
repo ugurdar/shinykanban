@@ -26,7 +26,6 @@ remotes::install_github("ugurdar/shinykanban@main")
 library(shiny)
 library(shinykanban)
 library(bslib)
-library(bsicons)
 
 ui <- page_fluid(
   title = "My App",
