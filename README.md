@@ -15,11 +15,12 @@
 install.packages("shinykanban")
 ```
 
-## Example
-
 ``` r
 remotes::install_github("ugurdar/shinykanban@main")
 ```
+
+## Example
+
 
 ```
 library(shiny)
