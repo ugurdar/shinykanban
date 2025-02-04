@@ -1,24 +1,24 @@
 <img align="right" width="220" height="240" src="https://drive.google.com/file/d/12CIiaTKPJh4D1IegS5jzM30E4MEm-oQ_">
 
-# datadriftR
+# shinykanban
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/datadriftR)](https://cran.r-project.org/package=datadriftR)
-[![](https://cranlogs.r-pkg.org/badges/datadriftR)](https://cran.rstudio.com/web/packages/datadriftR/index.html)
-[![](http://cranlogs.r-pkg.org/badges/last-week/datadriftR?color=green)](https://cran.r-project.org/package=datadriftR)
+[![CRAN status](https://www.r-pkg.org/badges/version/shinykanban)](https://cran.r-project.org/package=shinykanban)
+[![](https://cranlogs.r-pkg.org/badges/shinykanban)](https://cran.rstudio.com/web/packages/shinykanban/index.html)
+[![](http://cranlogs.r-pkg.org/badges/last-week/shinykanban?color=green)](https://cran.r-project.org/package=shinykanban)
 <!-- badges: end -->
 
 
 ## Installation
 
 ``` r
-install.packages("datadriftR")
+install.packages("shinykanban")
 ```
 
 ## Example
 
 ``` r
-remotes::install_github("ugurdar/datadriftR@main")
+remotes::install_github("ugurdar/shinykanban@main")
 ```
 
 ```
@@ -84,4 +84,4 @@ shinyApp(ui, server)
 
 ```
 
-<img width="420" height="440" src="https://drive.google.com/file/d/1fQKFVrmcNnlNzMir4cDGjXGW42utPZhU/view?usp=drive_link">
+<img width="420" height="440" src="https://drive.google.com/file/d/1fQKFVrmcNnlNzMir4cDGjXGW42utPZhU">
