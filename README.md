@@ -1,4 +1,4 @@
-<img align="right" width="220" height="240" src="https://drive.google.com/uc?export=download&id=12CIiaTKPJh4D1IegS5jzM30E4MEm-oQ_">
+<img src="https://drive.google.com/uc?export=download&id=12CIiaTKPJh4D1IegS5jzM30E4MEm-oQ_" align="right" alt="Rhino logo" style="height: 140px;">
 
 # shinykanban
 
@@ -84,4 +84,4 @@ shinyApp(ui, server)
 
 ```
 
-<img width="420" height="440" src="https://drive.google.com/uc?export=download&id=1fQKFVrmcNnlNzMir4cDGjXGW42utPZhU">
+<img width="620" height="340" src="https://drive.google.com/uc?export=download&id=1fQKFVrmcNnlNzMir4cDGjXGW42utPZhU">
