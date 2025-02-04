@@ -1,6 +1,6 @@
-<img src="https://drive.google.com/uc?export=download&id=12CIiaTKPJh4D1IegS5jzM30E4MEm-oQ_" align="right" alt="Rhino logo" style="height: 140px;">
 
-# shinykanban
+# shinykanban <img src="https://drive.google.com/uc?export=download&id=12CIiaTKPJh4D1IegS5jzM30E4MEm-oQ_" align="right" alt="Rhino logo" style="height: 140px;">
+
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/shinykanban)](https://cran.r-project.org/package=shinykanban)
